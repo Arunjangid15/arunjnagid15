@@ -181,3 +181,46 @@ The generate_text() function handles POST requests to the /api/generate endpoint
 To test the app, you could run it locally using python app.py and use a tool like curl or a web client like Postman to send requests to the endpoints. For example, to test the /api/generate endpoint, you could send a POST request with a JSON body like {"prompt": "Hello, world!"} and check the response to ensure that generated text is returned.
 
 
+# Task 3:
+
+1a. Purpose and Functionality:
+The web application is a text generation tool that uses the GPT-3.5 language model to generate natural language text based on user prompts. The application provides a web-based interface for users to input prompts and receive generated text in response. The ChatGPT API is integrated into the application to generate text based on user prompts.
+
+1b. Instructions for Setup, Installation, and Running the Application:
+
+Clone the repository from GitHub.
+Install the required Python packages using pip: pip install -r requirements.txt
+Set the environment variable OPENAI_API_KEY to your OpenAI API key.
+Run the application using Flask: flask run
+Access the application by visiting http://localhost:5000 in your web browser.
+1c. Examples of API Calls and Responses:
+Example Request to /api/generate:
+
+# bash
+
+POST /api/generate HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+    "prompt": "Once upon a time",
+    "max_tokens": 50,
+    "temperature": 0.8,
+    "n": 1,
+    "stop": "."
+}
+Example Response from /api/generate:
+
+# less
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "text": "Once upon a time, in a far-off land, there lived a powerful wizard named Merlin. He was known throughout the land for his magical powers, and many
+
+
+
+
+
+
