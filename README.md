@@ -108,4 +108,76 @@ def result():
         align-items: center;
         margin-top: 
         }
+        
+        #how the Flask app might be structured and implemented to satisfy the requirements of Task 2:
+
+#python
+
+from flask import Flask, render_template, request, jsonify
+import openai
+import os
+
+# Set up the OpenAI API key
+openai.api_key = os.environ.get('OPENAI_API_KEY')
+
+# Initialize the Flask application
+app = Flask(__name__)
+
+# Define the route for the homepage
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    if request.method == 'GET':
+        return render_template('index.html')
+    elif request.method == 'POST':
+        prompt = request.form.get('prompt')
+        if not prompt:
+            error_message = "Please provide a prompt."
+            return render_template('index.html', error_message=error_message)
+        try:
+            response = openai.Completion.create(
+                engine='text-davinci-002',
+                prompt=prompt,
+                max_tokens=1024,
+                n=1,
+                stop=None,
+                temperature=0.5,
+            )
+            generated_text = response.choices[0].text
+            return render_template('results.html', generated_text=generated_text)
+        except Exception as e:
+            error_message = f"An error occurred: {str(e)}"
+            return render_template('index.html', error_message=error_message)
+
+# Define the route for the ChatGPT API integration
+@app.route('/api/generate', methods=['POST'])
+def generate_text():
+    data = request.json
+    if not data:
+        return jsonify({'error': 'No JSON data provided.'}), 400
+    prompt = data.get('prompt')
+    if not prompt:
+        return jsonify({'error': 'No prompt provided.'}), 400
+    try:
+        response = openai.Completion.create(
+            engine='text-davinci-002',
+            prompt=prompt,
+            max_tokens=1024,
+            n=1,
+            stop=None,
+            temperature=0.5,
+        )
+        generated_text = response.choices[0].text
+        return jsonify({'generated_text': generated_text}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Run the Flask application
+if __name__ == '__main__':
+    app.run(debug=True)
+In this example, the Flask app defines two routes: one for the homepage and one for the ChatGPT API integration. The home() function handles both GET and POST requests to the homepage. GET requests simply render the index.html template, which contains an HTML form for submitting prompts. POST requests process the submitted form data and generate text using the OpenAI API. If no prompt is provided, an error message is displayed on the homepage. If an error occurs during text generation, the error message is displayed on the homepage.
+
+The generate_text() function handles POST requests to the /api/generate endpoint. It expects JSON data with a prompt field. If no JSON data is provided or if no prompt is provided, an error response is returned. Otherwise, text is generated using the OpenAI API and returned as JSON data.
+
+To test the app, you could run it locally using python app.py and use a tool like curl or a web client like Postman to send requests to the endpoints. For example, to test the /api/generate endpoint, you could send a POST request with a JSON body like {"prompt": "Hello, world!"} and check the response to ensure that generated text is returned.
+
 
