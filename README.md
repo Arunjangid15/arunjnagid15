@@ -109,9 +109,9 @@ def result():
         margin-top: 
         }
         
-        #how the Flask app might be structured and implemented to satisfy the requirements of Task 2:
+        # how the Flask app might be structured and implemented to satisfy the requirements of Task 2:
 
-#python
+# python
 
 from flask import Flask, render_template, request, jsonify
 import openai
