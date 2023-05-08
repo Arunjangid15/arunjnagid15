@@ -8,8 +8,8 @@ Copy code
 pip install flask
 Create a Flask app
 Create a new Python file called app.py and add the following code to create a Flask app:
-python
-Copy code
+# python
+
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -22,8 +22,7 @@ if __name__ == '__main__':
     app.run(debug=True)
 Create a simple HTML form
 Create a new folder called templates and add a new HTML file called index.html. Add the following code to create a simple form that accepts user input:
-html
-Copy code
+# html
 <!DOCTYPE html>
 <html>
   <head>
@@ -37,10 +36,10 @@ Copy code
     </form>
   </body>
 </html>
-Create a results page
-Add a new HTML file called result.html to the templates folder. Add the following code to display the message entered by the user:
-html
-Copy code
+# Create a results page
+# Add a new HTML file called result.html to the templates folder. Add the following code to display the message entered by the user:
+
+# html
 <!DOCTYPE html>
 <html>
   <head>
@@ -51,14 +50,14 @@ Copy code
     <p>Your message: {{ message }}</p>
   </body>
 </html>
-Integrate the ChatGPT API
-To integrate the ChatGPT API, you'll need to install the requests library. Open your terminal and run the following command:
-Copy code
+
+# Integrate the ChatGPT API
+# To integrate the ChatGPT API, you'll need to install the requests library. Open your terminal and run the following command:
+
 pip install requests
 Add the following code to the app.py file to handle API requests:
 
-python
-Copy code
+# python
 import requests
 
 CHATGPT_API_URL = 'https://api.openai.com/v1/engines/davinci-codex/completions'
@@ -88,7 +87,7 @@ def result():
     return render_template('result.html', message=response)
 # Implement basic web development principles
 # 6 :- Add the following code to the index.html file to add some basic styling:
-html
+# html
  <!DOCTYPE html>
 <html>
   <head>
@@ -108,9 +107,5 @@ html
         justify-content: center;
         align-items: center;
         margin-top: 
+        }
 
-
-
-
-
-Regenerate response
